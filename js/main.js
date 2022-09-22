@@ -5,12 +5,14 @@ let userStatEl = document.querySelector('#result-user-stat');
 let compStatEl = document.querySelector('#result-comp-stat');
 let resStatEl = document.querySelector('#result-final-stat');
 
+let waiTime = 5;
+
+
 
 let waitEl = document.createElement('div');
 waitEl.style.fontSize = '4rem';
 waitEl.style.fontWeight = 'bolder';
 waitEl.style.textAlign = 'center';
-waitEl.innerText = 'wait for 5 seconds...';
 
 // creating element for stats 
 let element1 = document.createElement('span');
@@ -130,9 +132,17 @@ choice.forEach(e => {
             declareWinner()
             // setting display none of choices for 5 sec 
             document.querySelector('.choices').style.display = 'none';
-
             document.body.append(waitEl);
+            waitEl.innerText = 'wait for 5 seconds...';
 
+           let timer =  setInterval(()=>{
+                
+                waitEl.innerText = waiTime -1;
+                waiTime --;
+                if(waiTime <= 0){
+                    clearInterval(timer);
+                  }
+            },1000)
          //  setting all stats to empty again after 5 sec 
 
         setTimeout(() => {
@@ -145,6 +155,7 @@ choice.forEach(e => {
             document.querySelector('#compScoreVal').innerText = '0';
             document.querySelector('.choices').style.display = 'block'
             document.body.removeChild(waitEl);
+            waiTime = 5;
 
 
         }, 5000)                                                                                                                                                                
